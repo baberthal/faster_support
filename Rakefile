@@ -13,12 +13,21 @@ task build: [:compile, :tooling]
 
 task prespec: [:clobber, :compile, :tooling]
 
-Dir['./lib/tasks/**/*.rake'].each { |f| load f } # load task directory
+require 'tasks/tooling'
 
 Rake::ExtensionTask.new('faster_support') do |ext|
   ext.lib_dir = 'lib/faster_support'
   ext.source_pattern = '*.{c,cpp,m,mm}'
-  Tooling.exttask = ext
+  Tooling.add_task(ext: ext)
 end
+
+Rake::ExtensionTask.new('object/blank') do |ext|
+  ext.ext_dir = 'ext/faster_support/object/blank'
+  ext.lib_dir = 'lib/faster_support/core_ext'
+  ext.source_pattern = '*.{c,cpp,m,mm}'
+  Tooling.add_task(ext: ext)
+end
+
+Tooling.define(:tooling)
 
 task default: [:clobber, :compile, :tooling, :spec]
