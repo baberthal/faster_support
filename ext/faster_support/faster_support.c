@@ -1,9 +1,8 @@
 #include "faster_support.h"
 
-VALUE rb_mFasterSupport;
-
-void
-Init_faster_support(void)
+void Init_faster_support(void)
 {
-  rb_mFasterSupport = rb_define_module("FasterSupport");
+  Init_str_blank();
+  Init_ary_blank();
+  Init_obj_blank();
 }
