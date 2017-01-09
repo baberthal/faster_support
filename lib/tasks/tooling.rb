@@ -25,7 +25,7 @@ module Tooling
   end
 
   XCODE_TOOLCHAIN_PATH = '/Applications/Xcode.app/Contents/Developer' \
-                         '/Toolchains/XcodeDefault.xctoolchain'
+                         '/Toolchains/XcodeDefault.xctoolchain'.freeze
   PRE_COMPILE_FLAGS = %w(-x c -std=c99).freeze
 
   POST_COMPILE_FLAGS = %W(

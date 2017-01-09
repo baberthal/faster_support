@@ -36,3 +36,5 @@ example_id                                     | status | run_time        |
 ./spec/faster_support/string_spec.rb[1:2:2:6]  | failed | 0.00021 seconds |
 ./spec/faster_support/string_spec.rb[1:2:2:7]  | failed | 0.00016 seconds |
 ./spec/faster_support/string_spec.rb[1:2:2:8]  | failed | 0.00014 seconds |
+./spec/faster_support_spec.rb[1:1]             | passed | 0.00143 seconds |
+./spec/faster_support_spec.rb[1:2]             | failed | 0.01312 seconds |

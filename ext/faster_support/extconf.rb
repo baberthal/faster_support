@@ -1,3 +1,3 @@
-require "mkmf"
+require 'mkmf'
 
-create_makefile("faster_support/faster_support")
+create_makefile('faster_support/faster_support')
