@@ -19,7 +19,7 @@ namespace :tooling do
     commands = [Tooling::PRE_COMPILE_FLAGS,
                 commands.uniq,
                 Tooling::POST_COMPILE_FLAGS]
-    print 'Generating .color_coded...'
+    puts 'Generating .color_coded...'
     File.open('.color_coded', 'w') { |io| io.puts commands }
     puts 'Done'
   end
