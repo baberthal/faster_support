@@ -1,9 +1,11 @@
 /* Faster implementation of String#blank? */
 
-#include "faster_support.h"
+#include "blank.h"
 #include <stdio.h>
 
-static VALUE rb_str_blank(VALUE str)
+extern VALUE rb_mFasterSupport;
+
+static VALUE rb_str_as_blank(VALUE str)
 {
   rb_encoding *enc;
   char *s, *e;
@@ -62,7 +64,12 @@ static VALUE rb_str_blank(VALUE str)
   return Qtrue;
 }
 
-static VALUE rb_str_blank_mri(VALUE str)
+static VALUE rb_str_blank(VALUE str)
+{
+  return rb_str_as_blank(str);
+}
+
+static VALUE rb_str_mri_blank(VALUE str)
 {
   rb_encoding *enc;
   char *s, *e;
@@ -91,7 +98,8 @@ static VALUE rb_str_present(VALUE str)
 
 void Init_str_blank(void)
 {
+  rb_define_method(rb_cString, "as_blank?", rb_str_as_blank, 0);
   rb_define_method(rb_cString, "blank?", rb_str_blank, 0);
-  rb_define_method(rb_cString, "mri_blank?", rb_str_blank_mri, 0);
+  rb_define_method(rb_cString, "mri_blank?", rb_str_mri_blank, 0);
   rb_define_method(rb_cString, "present?", rb_str_present, 0);
 }

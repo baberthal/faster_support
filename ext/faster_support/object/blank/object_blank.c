@@ -1,6 +1,6 @@
 /* Object#blank? implementation */
 
-#include "faster_support.h"
+#include "blank.h"
 
 static ID id_empty;
 
@@ -32,34 +32,40 @@ static VALUE rb_nil_blank(VALUE self)
   return Qtrue;
 }
 
-static VALUE rb_nil_present(VALUE self)
-{
-  return Qfalse;
-}
-
 static VALUE rb_true_blank(VALUE self)
 {
   return Qfalse;
 }
 
-static VALUE rb_true_present(VALUE self)
+static VALUE rb_ary_blank(VALUE ary)
 {
-  return Qtrue;
+  if (RARRAY_LEN(ary) == 0) {
+    return Qtrue;
+  }
+
+  return Qfalse;
 }
 
-void Init_obj_blank(void)
+static VALUE rb_hash_blank(VALUE self)
+{
+  return RHASH_EMPTY_P(self) ? Qtrue : Qfalse;
+}
+
+void Init_blank(void)
 {
   id_empty = rb_intern("empty?");
+
   rb_define_method(rb_cObject, "blank?", rb_obj_blank, 0);
   rb_define_method(rb_cObject, "present?", rb_obj_present, 0);
+
   rb_define_method(rb_cNilClass, "blank?", rb_nil_blank, 0);
-  rb_define_method(rb_cNilClass, "present?", rb_nil_present, 0);
   rb_define_method(rb_cFalseClass, "blank?", rb_nil_blank, 0);
-  rb_define_method(rb_cFalseClass, "present?", rb_nil_present, 0);
+  rb_define_method(rb_cArray, "blank?", rb_ary_blank, 0);
+  rb_define_method(rb_cHash, "blank?", rb_hash_blank, 0);
   rb_define_method(rb_cTrueClass, "blank?", rb_true_blank, 0);
-  rb_define_method(rb_cTrueClass, "present?", rb_true_present, 0);
+
+  Init_str_blank();
+
   rb_define_method(rb_cNumeric, "blank?", rb_true_blank, 0);
-  rb_define_method(rb_cNumeric, "present?", rb_true_present, 0);
   rb_define_method(rb_cTime, "blank?", rb_true_blank, 0);
-  rb_define_method(rb_cTime, "present?", rb_true_present, 0);
 }
