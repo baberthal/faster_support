@@ -29,7 +29,7 @@ module Tooling
     def color_coded_commands
       @color_coded_commands ||= [Tooling::PRE_COMPILE_FLAGS,
                                  inner_cc_commands,
-                                 Tooling::POST_COMPILE_FLAGS]
+                                 Tooling::POST_COMPILE_FLAGS].uniq
     end
 
     def add_task(*args, ext:, **opts)
@@ -45,13 +45,13 @@ module Tooling
       task "#{name}:pre_compile_commands" => pre_compile_commands
 
       define_ccjson(name)
-      define_color_coded
+      # define_color_coded
 
-      CLEAN.include('.color_coded')
+      # CLEAN.include('.color_coded')
       CLEAN.include('compile_commands.json')
 
       desc 'Default vim tooling task'
-      task "#{name}:default" => ['compile_commands.json', '.color_coded']
+      task "#{name}:default" => ['compile_commands.json']
 
       desc 'Generate vim tooling'
       task name => [:compile, "#{name}:default"]
@@ -83,13 +83,18 @@ module Tooling
       @pre_compile_commands ||= tasks.map(&:cc_json_task_name)
     end
 
-    def inner_cc_commands
+    def inner_cc_commands # rubocop:disable Metrics/AbcSize,MethodLength
       @inner_cc_commands ||=
         begin
           commands = []
           raw = File.read(File.join(Rake.original_dir, 'compile_commands.json'))
           JSON.parse(raw).each do |cmd_def|
-            commands << cmd_def['command'].split(' ')[2..-4]
+            commands << cmd_def['command'].split(' ')[2..-4].map do |string|
+              string.strip
+                    .sub('../../../..', Rake.original_dir.to_s)
+                    .sub('/../', '/')
+                    .sub(/-I\.\z/, "-I#{Rake.original_dir}/ext/.")
+            end
           end
           commands.uniq
         rescue Errno::ENOENT
@@ -171,7 +176,7 @@ module Tooling
     end
 
     def add_cc_json
-      puts "Adding compile_commands.json for #{name}"
+      # puts "Adding compile_commands.json for #{name}"
       Tooling.cc_jsons << cc_json
     end
 
