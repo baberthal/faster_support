@@ -34,4 +34,5 @@ void Init_string(void)
   ascii_8bit_enc = rb_ascii8bit_encoding();
   rb_define_method(rb_cString, "ascii_8bit", rb_str_to_ascii8bit, 0);
   rb_define_alias(rb_cString, "as_ascii_8bit", "ascii_8bit");
+  rb_define_alias(rb_cString, "as_8bit_ascii", "ascii_8bit");
 }
