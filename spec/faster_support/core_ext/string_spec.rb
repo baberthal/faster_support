@@ -23,6 +23,11 @@ RSpec.describe String do
       it 'does not raise an error' do
         expect { newstr }.not_to raise_error
       end
+
+      it 'is basically the same as #force_encoding(BINARY)' do
+        bin = string.dup.force_encoding('BINARY')
+        expect(newstr.encoding).to eq bin.encoding
+      end
     end
 
     context 'with a non-frozen string' do
@@ -35,6 +40,11 @@ RSpec.describe String do
 
       it 'does not raise an error' do
         expect { newstr }.not_to raise_error
+      end
+
+      it 'is basically the same as #force_encoding(BINARY)' do
+        bin = string.dup.force_encoding('BINARY')
+        expect(newstr.encoding).to eq bin.encoding
       end
     end
   end
