@@ -19,7 +19,7 @@
 
 group :build_and_test, halt_on_fail: true do
   guard 'rake', task: 'prespec' do
-    watch(%r{^ext/(.+)\.(c|h|rb)$})
+    watch(%r{^ext/faster_support/(.+)\.(c|h|rb)$})
   end
 
   guard :rspec, cmd: 'bundle exec rspec' do
@@ -34,7 +34,7 @@ group :build_and_test, halt_on_fail: true do
     watch(rspec.spec_support) { rspec.spec_dir }
     watch(rspec.spec_files)
 
-    watch(%r{^ext/(.+)\.(c|h|rb)$}) { rspec.spec_dir }
+    watch(%r{^ext/faster_support/(.+)\.(c|h|rb)$}) { rspec.spec_dir }
 
     # Ruby files
     ruby = dsl.ruby
