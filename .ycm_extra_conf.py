@@ -41,9 +41,15 @@ flags = [
     '-I/Users/morgan/projects/coach/faster_support/ext/faster_support/.',
     '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/stage/lib/faster_support/.',
     '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/faster_support/2.4.0/.',
-    '-I/Users/morgan/projects/coach/faster_support/ext/faster_support/object/blank/.',
-    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/stage/lib/faster_support/object/blank/.',
-    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/faster_support/2.4.0/object/blank/.',
+
+    '-I/Users/morgan/projects/coach/faster_support/ext/faster_support/core_ext/object/blank/.',
+    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/stage/lib/faster_support/core_ext/object/.'
+    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/faster_support/core_ext/object/blank/2.4.0/.',
+
+    '-I/Users/morgan/projects/coach/faster_support/ext/faster_support/core_ext/string/.',
+    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/stage/lib/faster_support/core_ext/.',
+    '-I/Users/morgan/projects/coach/faster_support/tmp/x86_64-darwin16/faster_support/core_ext/string/2.4.0/.',
+
     '-I/Users/morgan/.rvm/rubies/ruby-2.4.0/include/ruby-2.4.0/.',
     '-I/Users/morgan/.rvm/rubies/ruby-2.4.0/include/ruby-2.4.0/x86_64-darwin16/.',
     '-Wall',
