@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe String, :blank do
+require 'spec_helper'
+
+RSpec.describe Object, :blank do
   describe '#blank?' do
     context 'when the object is blank' do
       Spec::BlankHelper::BLANK.each do |value|
