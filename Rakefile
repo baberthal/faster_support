@@ -21,9 +21,8 @@ Rake::ExtensionTask.new('faster_support') do |ext|
   Tooling.add_task(ext: ext)
 end
 
-Rake::ExtensionTask.new('object/blank') do |ext|
-  ext.ext_dir = 'ext/faster_support/object/blank'
-  ext.lib_dir = 'lib/faster_support/core_ext'
+Rake::ExtensionTask.new('faster_support/core_ext/object/blank') do |ext|
+  ext.lib_dir = 'lib'
   ext.source_pattern = '*.{c,cpp,m,mm}'
   Tooling.add_task(ext: ext)
 end
