@@ -1,6 +1,7 @@
 /* Faster implementation of String#blank? */
 
 #include "blank.h"
+#include "faster_support.h"
 #include <stdio.h>
 
 extern VALUE rb_mFasterSupport;
@@ -64,11 +65,6 @@ static VALUE rb_str_as_blank(VALUE str)
   return Qtrue;
 }
 
-static VALUE rb_str_blank(VALUE str)
-{
-  return rb_str_as_blank(str);
-}
-
 static VALUE rb_str_mri_blank(VALUE str)
 {
   rb_encoding *enc;
@@ -89,6 +85,22 @@ static VALUE rb_str_mri_blank(VALUE str)
   }
 
   return Qtrue;
+}
+
+static VALUE rb_str_blank(VALUE str)
+{
+  FasterSupport_blank_impl impl = FasterSupport_get_blank_impl();
+
+  switch (impl) {
+  case Impl_MRI:
+    return rb_str_mri_blank(str);
+  case Impl_ActiveSupport:
+    return rb_str_as_blank(str);
+  default:
+    break;
+  }
+
+  return rb_str_as_blank(str);
 }
 
 static VALUE rb_str_present(VALUE str)
